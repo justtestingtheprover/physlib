@@ -147,8 +147,17 @@ lemma rotationGenerator_mem (i : Fin 3) : rotationGenerator i ∈ lorentzAlgebra
 
 /-- Boost generators are symmetric: K_iᵀ = K_i. -/
 lemma boostGenerator_transpose (i : Fin 3) :
-    (boostGenerator i)ᵀ = boostGenerator i :=
-  sorry
+    (boostGenerator i)ᵀ = boostGenerator i := by
+  ext μ ν
+  simp only [transpose_apply, boostGenerator]
+  apply if_congr ?_ rfl rfl
+  constructor
+  · rintro (⟨h1, h2⟩ | ⟨h1, h2⟩)
+    · exact Or.inr ⟨h2, h1⟩
+    · exact Or.inl ⟨h2, h1⟩
+  · rintro (⟨h1, h2⟩ | ⟨h1, h2⟩)
+    · exact Or.inr ⟨h2, h1⟩
+    · exact Or.inl ⟨h2, h1⟩
 
 /-- Boost generators are traceless: tr(K_i) = 0. -/
 lemma boostGenerator_trace (i : Fin 3) :
