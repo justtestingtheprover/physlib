@@ -157,10 +157,9 @@ lemma boostGenerator_trace (i : Fin 3) :
 
 /-- Rotation generators are antisymmetric: J_iᵀ = -J_i. -/
 lemma rotationGenerator_transpose (i : Fin 3) :
-    (rotationGenerator i)ᵀ = -(rotationGenerator i) :=
-  sorry
-
-TODO "ROT_TRACE" "Prove that rotation generators are traceless: \
-  Matrix.trace (rotationGenerator i) = 0"
+    (rotationGenerator i)ᵀ = -(rotationGenerator i) := by
+  ext μ ν
+  simp only [transpose_apply, neg_apply, rotationGenerator]
+  fin_cases i <;> fin_cases μ <;> fin_cases ν <;> simp
 
 end lorentzAlgebra
