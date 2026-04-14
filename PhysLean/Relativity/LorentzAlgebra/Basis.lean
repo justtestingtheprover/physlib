@@ -161,8 +161,15 @@ lemma boostGenerator_transpose (i : Fin 3) :
 
 /-- Boost generators are traceless: tr(K_i) = 0. -/
 lemma boostGenerator_trace (i : Fin 3) :
-    Matrix.trace (boostGenerator i) = 0 :=
-  sorry
+    Matrix.trace (boostGenerator i) = 0 := by
+  simp only [Matrix.trace, Matrix.diag, boostGenerator]
+  apply Finset.sum_eq_zero
+  intro μ _
+  split_ifs with h
+  · rcases h with ⟨h1, h2⟩ | ⟨h1, h2⟩
+    · rw [h1] at h2; cases h2
+    · rw [h1] at h2; cases h2
+  · rfl
 
 /-- Rotation generators are antisymmetric: J_iᵀ = -J_i. -/
 lemma rotationGenerator_transpose (i : Fin 3) :
